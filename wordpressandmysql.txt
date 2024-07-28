@@ -1,0 +1,124 @@
+admin
+Redhat12345
+bala
+
+
+52.87.213.229
+
+
+database-1.cjgsuca4mynu.us-east-1.rds.amazonaws.com
+
+bala
+n#5jHGO&9ghl60YDvL
+
+========================================================
+
+https://docs.aws.amazon.com/linux/al2023/ug/hosting-wordpress-aml-2023.html
+
+ 
+
+wordpress and mysql
+
+Install WordPress
+
+Connect to your instance, and download the WordPress installation package. For more information about connecting to your instance, see Connecting to AL2023 instances.
+
+Download and install these packages using the following command.
+==============================================================
+
+sudo su -
+
+dnf install wget php-mysqlnd httpd php-fpm php-mysqli mariadb105-server php-json php php-devel -y
+
+
+
+
+Download the latest WordPress installation package with the wget command. The following command should always download the latest release.
+==================================================
+cd /var/www/html/
+
+wget https://wordpress.org/latest.tar.gz
+
+
+Unzip and unarchive the installation package. The installation folder is unzipped to a folder called wordpress.
+===========================================================================
+ 
+tar -xzf latest.tar.gz
+
+chown -R apache /var/www/html/
+
+
+Start the database and web server.
+======================================
+
+systemctl start mariadb httpd
+
+
+
+http://52.87.213.229/wordpress/
+
+
+
+
+
+
+
+
+
+mysql -h database-1.cjgsuca4mynu.us-east-1.rds.amazonaws.com -u admin -p
+
+
+MySQL [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bala               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.001 sec)
+
+
+
+
+MySQL [(none)]> use bala;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+
+
+Database changed
+MySQL [bala]> show tables;
++-----------------------+
+| Tables_in_bala        |
++-----------------------+
+| wp_commentmeta        |
+| wp_comments           |
+| wp_links              |
+| wp_options            |
+| wp_postmeta           |
+| wp_posts              |
+| wp_term_relationships |
+| wp_term_taxonomy      |
+| wp_termmeta           |
+| wp_terms              |
+| wp_usermeta           |
+| wp_users              |
++-----------------------+
+12 rows in set (0.002 sec)
+
+
+
+MySQL [bala]> select * from wp_users;
++----+------------+------------------------------------+---------------+----------------+--------------------------------+---------------------+---------------------+-------------+--------------+
+| ID | user_login | user_pass                          | user_nicename | user_email     | user_url                       | user_registered     | user_activation_key | user_status | display_name |
++----+------------+------------------------------------+---------------+----------------+--------------------------------+---------------------+---------------------+-------------+--------------+
+|  1 | bala       | $P$BHnPjVl06H5MSk73jViljVxoMHJ3Mv. | bala          | bala@gmail.com | http://52.87.213.229/wordpress | 2024-07-28 11:40:06 |                     |           0 | bala         |
++----+------------+------------------------------------+---------------+----------------+--------------------------------+---------------------+---------------------+-------------+--------------+
+1 row in set (0.001 sec)
+
+
+
+SELECT * FROM wp_users;
